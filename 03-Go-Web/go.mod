@@ -1,4 +1,4 @@
-module app
+module 02-GET
 
 go 1.21.5
 
