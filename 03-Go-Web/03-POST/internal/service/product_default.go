@@ -81,14 +81,14 @@ func validateDateExpiration(s string) (ok bool) {
 }
 
 // GetAll gets all the products from the repository
-func (p *ProductDefault) GetAll() (products []*internal.Product, err error) {
+func (p *ProductDefault) GetAll() (products []internal.Product, err error) {
 	// get all the products from the repository
 	products, err = (*p).rp.GetAll()
 	return
 }
 
 // GetByID gets the product by id from the repository
-func (p *ProductDefault) GetByID(id int) (product *internal.Product, err error) {
+func (p *ProductDefault) GetByID(id int) (product internal.Product, err error) {
 	// get the product by id from the repository
 	product, err = (*p).rp.GetByID(id)
 	return

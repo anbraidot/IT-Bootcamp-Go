@@ -18,7 +18,7 @@ type ProductService interface {
 	// Save saves the product in the service
 	Save(product *Product) (err error)
 	// GetAll gets all the products from the service
-	GetAll() (products []*Product, err error)
+	GetAll() (products []Product, err error)
 	// GetByID gets the product by id from the service
-	GetByID(id int) (product *Product, err error)
+	GetByID(id int) (product Product, err error)
 }

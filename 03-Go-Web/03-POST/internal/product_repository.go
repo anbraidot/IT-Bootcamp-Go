@@ -12,7 +12,7 @@ type ProductRepository interface {
 	// Save saves the product in the repository
 	Save(product *Product) (err error)
 	// GetAll gets all the products from the repository
-	GetAll() (products []*Product, err error)
+	GetAll() (products []Product, err error)
 	// GetByID gets the product by id from the repository
-	GetByID(id int) (product *Product, err error)
+	GetByID(id int) (product Product, err error)
 }

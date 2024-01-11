@@ -48,19 +48,18 @@ func (p *ProductMap) Save(product *internal.Product) (err error) {
 }
 
 // GetAll gets all the products from the repository
-func (p *ProductMap) GetAll() (products []*internal.Product, err error) {
+func (p *ProductMap) GetAll() (products []internal.Product, err error) {
 	// get all the products from the map
 	for _, p := range (*p).db {
-		products = append(products, &p)
+		products = append(products, p)
 	}
 	return
 }
 
 // GetByID gets the product by id from the repository
-func (p *ProductMap) GetByID(id int) (product *internal.Product, err error) {
+func (p *ProductMap) GetByID(id int) (product internal.Product, err error) {
 	// get the product from the map
-	data, ok := (*p).db[id]
-	product = &data
+	product, ok := (*p).db[id]
 	if !ok {
 		err = internal.ErrProductNotFound
 		return 
