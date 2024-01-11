@@ -1,4 +1,4 @@
-module 02-GET
+module 03-Go-Web
 
 go 1.21.5
 
