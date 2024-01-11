@@ -21,4 +21,8 @@ type ProductService interface {
 	GetAll() (products []Product, err error)
 	// GetByID gets the product by id from the service
 	GetByID(id int) (product Product, err error)
+	// Update updates the product in the service
+	Update(product *Product) (err error)
+	// Delete deletes the product from the service
+	Delete(id int) (err error)
 }

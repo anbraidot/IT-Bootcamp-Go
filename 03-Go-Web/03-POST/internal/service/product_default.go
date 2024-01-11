@@ -23,7 +23,7 @@ type ProductDefault struct {
 func (p *ProductDefault) Save(product *internal.Product) (err error) {
 	// business rules
 	//- validate required fields
-	if err = p.validate(product); err != nil {
+	if err = p.ValidateKeyContent(product); err != nil {
 		return
 	}
 
@@ -32,14 +32,67 @@ func (p *ProductDefault) Save(product *internal.Product) (err error) {
 		switch err {
 		case internal.ErrProductCodeAlreadyExists:
 			err = fmt.Errorf("%w: code_value", internal.ErrProductAlreadyExists)
-			return
 		}
+		return
 	}
 	return
 }
 
-// validate validates the product fields with business rules
-func (p *ProductDefault) validate(product *internal.Product) (err error) {
+// GetAll gets all the products from the repository
+func (p *ProductDefault) GetAll() (products []internal.Product, err error) {
+	// get all the products from the repository
+	products, err = (*p).rp.GetAll()
+	return
+}
+
+// GetByID gets the product by id from the repository
+func (p *ProductDefault) GetByID(id int) (product internal.Product, err error) {
+	// get the product by id from the repository
+	product, err = (*p).rp.GetByID(id)
+	if err != nil {
+		switch err {
+		case internal.ErrProductIdNotFound:
+			err = fmt.Errorf("%w: code_value", internal.ErrProductNotFound)
+		}
+		return
+	}
+	return
+}
+
+// Update updates the product in the repository
+func (p *ProductDefault) Update(product *internal.Product) (err error) {
+	// business rules
+	//- validate required fields
+	if err = p.ValidateKeyContent(product); err != nil {
+		return
+	}
+
+	// update the product in the repository
+	if err = (*p).rp.Update(product); err != nil {
+		switch err {
+		case internal.ErrProductIdNotFound:
+			err = fmt.Errorf("%w: code_value", internal.ErrProductNotFound)
+		}
+		return
+	}
+	return
+}
+
+// Delete deletes the product from the repository
+func (p *ProductDefault) Delete(id int) (err error) {
+	// delete the product from the repository
+	if err = (*p).rp.Delete(id); err != nil {
+		switch err {
+		case internal.ErrProductIdNotFound:
+			err = fmt.Errorf("%w: code_value", internal.ErrProductNotFound)
+		}
+		return
+	}
+	return
+}
+
+// ValidateKeyContent validates the product fields with business rules
+func (p *ProductDefault) ValidateKeyContent(product *internal.Product) (err error) {
 	// validate the product
 	//- name is not empty
 	if (*product).Name == "" {
@@ -78,18 +131,4 @@ func validateDateExpiration(s string) (ok bool) {
 		return false
 	}
 	return true
-}
-
-// GetAll gets all the products from the repository
-func (p *ProductDefault) GetAll() (products []internal.Product, err error) {
-	// get all the products from the repository
-	products, err = (*p).rp.GetAll()
-	return
-}
-
-// GetByID gets the product by id from the repository
-func (p *ProductDefault) GetByID(id int) (product internal.Product, err error) {
-	// get the product by id from the repository
-	product, err = (*p).rp.GetByID(id)
-	return
 }

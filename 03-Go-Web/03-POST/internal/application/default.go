@@ -73,6 +73,9 @@ func (d *DefaultHTTP) Run() (err error) {
 		//r.Get("/search", hd.GetByPriceGreaterThan())
 
 		r.Post("/", hd.Create())
+		r.Put("/{id}", hd.Update())
+		r.Patch("/{id}", hd.UpdatePartial())
+		r.Delete("/{id}", hd.Delete())
 	})
 
 	// run the HTTP server
