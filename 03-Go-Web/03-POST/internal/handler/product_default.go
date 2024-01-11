@@ -128,7 +128,6 @@ func (p *ProductDefault) GetAll() http.HandlerFunc {
 		} else {
 			response.JSON(w, http.StatusOK, map[string]any{
 				"products": productList,
-				"message":  "products found",
 			})
 			return
 		}
@@ -164,7 +163,6 @@ func (p *ProductDefault) GetByID() http.HandlerFunc {
 		//response
 		response.JSON(w, http.StatusOK, map[string]any{
 			"product": product,
-			"message": "product found",
 		})
 	}
 }

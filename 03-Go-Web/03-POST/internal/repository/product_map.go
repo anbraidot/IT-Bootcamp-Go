@@ -34,7 +34,7 @@ type ProductMap struct {
 func (p *ProductMap) Save(product *internal.Product) (err error) {
 	// validate the product
 	// code_value is unique
-	if err = p.ValidateIdExistance((*product).Id); err != nil {
+	if err = p.ValidateCodeValueExistance((*product).CodeValue); err != nil {
 		return
 	}
 
@@ -101,6 +101,18 @@ func (p *ProductMap) ValidateIdExistance(id int) (err error) {
 	if !ok {
 		err = internal.ErrProductIdNotFound
 		return
+	}
+	return
+}
+
+// ValidateCodeValueExistance validates if the code value exists
+func (p *ProductMap) ValidateCodeValueExistance(codeValue string) (err error) {
+	// validate the code value
+	for _, p := range (*p).db {
+		if p.CodeValue == codeValue {
+			err = internal.ErrProductCodeAlreadyExists
+			return
+		}
 	}
 	return
 }
