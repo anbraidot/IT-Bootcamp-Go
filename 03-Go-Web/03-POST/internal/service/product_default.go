@@ -91,6 +91,69 @@ func (p *ProductDefault) Delete(id int) (err error) {
 	return
 }
 
+// ConsumerPrice calculates the consumer price of the list of products
+func (p *ProductDefault) ConsumerPrice(productIds *[]int) (products map[int]internal.Product, totalPrice float64, err error) {
+	// totalQuantity is the total quantity of products
+	var totalQuantity int
+
+	// validate if the productIds is empty
+	// - if is empty return the total price of the total quantity of products in the repository
+	// - else return the total price of the productIds
+	if len(*productIds) == 0 {
+		// get all the products from the repository
+		products, err := (*p).rp.GetAll()
+		if err != nil {
+			return nil, 0, err
+		}
+		// calculate the total price of the products
+		for _, product := range products {
+			// validate if the product is published
+			if ValidateProductDisponibility(&product, 0) != nil {
+				totalPrice += product.Price
+				totalQuantity++
+			}
+		}
+	} else {
+
+		// process the ids for count the products requested
+		productIdsCount := make(map[int]int)
+		for _, productId := range *productIds {
+			productIdsCount[productId]++
+		}
+
+		// calculate the total price of the productIdsMap
+		for productId, quantity := range productIdsCount {
+			// get the product by id from the repository
+			product, err := (*p).rp.GetByID(productId)
+			if err != nil {
+				return nil, 0, err
+			}
+
+			// validate the product disponibility
+			if err = ValidateProductDisponibility(&product, quantity); err != nil {
+				return nil, 0, err
+			}
+
+			// calculate the total price
+			totalPrice += product.Price * float64(quantity)
+			// increase the total quantity
+			totalQuantity += quantity
+		}
+	}
+
+	// calculate tax on the total price
+	switch {
+	case totalQuantity < 10:
+		totalPrice *= 1.21
+	case totalQuantity < 20:
+		totalPrice *= 1.17
+	case totalQuantity > 20:
+		totalPrice *= 1.15
+	}
+	
+	return
+}
+
 // ValidateKeyContent validates the product fields with business rules
 func (p *ProductDefault) ValidateKeyContent(product *internal.Product) (err error) {
 	// validate the product
@@ -110,7 +173,7 @@ func (p *ProductDefault) ValidateKeyContent(product *internal.Product) (err erro
 		return
 	}
 	//- expiration is not empty and is a valid date with format dd-mm-yyyy
-	if !validateDateExpiration((*product).Expiration) {
+	if !ValidateDateExpiration((*product).Expiration) {
 		err = fmt.Errorf("%w: expiration", internal.ErrInvalidField)
 		return
 	}
@@ -122,8 +185,8 @@ func (p *ProductDefault) ValidateKeyContent(product *internal.Product) (err erro
 	return
 }
 
-// validateDateExpiration validates the expiration date with format dd/mm/yyyy
-func validateDateExpiration(s string) (ok bool) {
+// ValidateDateExpiration validates the expiration date with format dd/mm/yyyy
+func ValidateDateExpiration(s string) (ok bool) {
 	// parse the date
 	date, err := time.Parse("02/01/2006", s)
 	// validate the date
@@ -131,4 +194,19 @@ func validateDateExpiration(s string) (ok bool) {
 		return false
 	}
 	return true
+}
+
+// ValidateProductDisponibility validates the product with business rules
+func ValidateProductDisponibility(product *internal.Product, quantity int) (err error) {
+	// validate the product
+	//- quantity is not negative and is less than the stock
+	if quantity > (*product).Quantity {
+		err = fmt.Errorf("%w: quantity", internal.ErrProductQuantityNotAvailable)
+		return
+	}
+	if !(*product).IsPublished {
+		err = fmt.Errorf("%w: is_published", internal.ErrProductNotPublished)
+		return
+	}
+	return
 }

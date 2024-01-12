@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-
 	"github.com/go-chi/chi/v5"
 )
 
@@ -384,6 +383,68 @@ func (p *ProductDefault) Delete() http.HandlerFunc {
 		// response
 		response.JSON(w, http.StatusAccepted, map[string]any{
 			"message": "product deleted",
+		})
+	}
+}
+
+// ConsumerPrice returns the price of a product or list of products
+func (p *ProductDefault) ConsumerPrice() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
+		//- initialize the list of product ids
+		var productIds []int
+		// - get the list of ids from the query params
+		queryParams := r.URL.Query()["list"]
+		if len(queryParams) > 0 {
+			// convert the list of ids to int
+			for _, id := range queryParams {
+				productID, err := strconv.Atoi(id)
+				if err != nil {
+					response.Error(w, http.StatusBadRequest, "invalid id")
+					return
+				}
+				productIds = append(productIds, productID)
+			}
+		}
+
+		// proccess
+		products, totalPrice, err := p.sv.ConsumerPrice(&productIds)
+		if err != nil {
+			switch {
+			case errors.Is(err, internal.ErrProductNotFound):
+				response.Error(w, http.StatusNotFound, "product not found")
+			case errors.Is(err, internal.ErrProductNotPublished), errors.Is(err, internal.ErrProductQuantityNotAvailable):
+				response.Error(w, http.StatusBadRequest, "product not available")
+			default:
+				response.Error(w, http.StatusInternalServerError, "internal server error")
+			}
+			return
+		}
+
+		// response
+		// - deserialize the list of products to a list of ProductJSON
+		var productsJSON []ProductJSON
+		for _, product := range products {
+			productJSON := ProductJSON{
+				Id:          product.Id,
+				Name:        product.Name,
+				Quantity:    product.Quantity,
+				CodeValue:   product.CodeValue,
+				IsPublished: product.IsPublished,
+				Expiration:  product.Expiration,
+				Price:       product.Price,
+			}
+			productsJSON = append(productsJSON, productJSON)
+		}
+		// - send the list of products and the total price
+		response.JSON(w, http.StatusOK, map[string]any{
+			"products": productsJSON,
+			"total_price": totalPrice,
 		})
 	}
 }

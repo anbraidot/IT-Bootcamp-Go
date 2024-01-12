@@ -11,6 +11,10 @@ var (
 	ErrFieldRequired = errors.New("field is required")
 	// ErrInvalidField is the error for when a field is invalid
 	ErrInvalidField = errors.New("field is invalid")
+	// ErrProductQuantityNotAvailable is the error for when the product quantity is not available
+	ErrProductQuantityNotAvailable = errors.New("product quantity not available")
+	// ErrProductNotPublished is the error for when the product is not published
+	ErrProductNotPublished = errors.New("product not published")
 )
 
 // ProductService is the interface for the product service
@@ -25,4 +29,6 @@ type ProductService interface {
 	Update(product *Product) (err error)
 	// Delete deletes the product from the service
 	Delete(id int) (err error)
+	// ConsumerPrice gets the consumer price of the product or list of products
+	ConsumerPrice(productIds *[]int) (products map[int]Product, totalPrice float64, err error)
 }

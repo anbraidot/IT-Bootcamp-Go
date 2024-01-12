@@ -86,6 +86,7 @@ func (d *DefaultHTTP) Run() (err error) {
 		r.Put("/{id}", hd.Update())
 		r.Patch("/{id}", hd.UpdatePartial())
 		r.Delete("/{id}", hd.Delete())
+		r.Get("/consumer_price", hd.ConsumerPrice())
 	})
 
 	// run the HTTP server
