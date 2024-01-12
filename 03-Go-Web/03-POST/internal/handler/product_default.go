@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
@@ -53,6 +54,12 @@ type BodyRequestProductJSON struct {
 func (p *ProductDefault) Create() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
+
 		var body BodyRequestProductJSON
 		if err := request.JSON(r, &body); err != nil {
 			response.Error(w, http.StatusBadRequest, "invalid body request")
@@ -111,6 +118,11 @@ func (p *ProductDefault) Create() http.HandlerFunc {
 func (p *ProductDefault) GetAll() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		//request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
 
 		//proccess
 		productList, err := p.sv.GetAll()
@@ -138,9 +150,14 @@ func (p *ProductDefault) GetAll() http.HandlerFunc {
 func (p *ProductDefault) GetByID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		//request
-		// Get the id from the URL
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
+		//- get the id from the URL
 		idParam := chi.URLParam(r, "id")
-		// Parse the idParam to int64
+		//- parse the idParam to int64
 		id, err := strconv.ParseInt(idParam, 0, 0)
 		if err != nil {
 			// Return Error 500 Internal Server Error
@@ -171,6 +188,11 @@ func (p *ProductDefault) GetByID() http.HandlerFunc {
 func (p *ProductDefault) Update() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
 		// - get the id from the URL
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
@@ -250,6 +272,11 @@ func (p *ProductDefault) Update() http.HandlerFunc {
 func (p *ProductDefault) UpdatePartial() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
 		// - get the id from the URL
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
@@ -330,6 +357,11 @@ func (p *ProductDefault) UpdatePartial() http.HandlerFunc {
 func (p *ProductDefault) Delete() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// request
+		//- validate auth token
+		if err := validateAuthToken(r); err != nil {
+			response.Error(w, http.StatusUnauthorized, "unauthorized")
+			return
+		}
 		// - get the id from the URL
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
@@ -364,4 +396,23 @@ func ValidateKeyExistance(mp map[string]any, keys ...string) error {
 		}
 	}
 	return nil
+}
+
+// ValidateAuthToken validates that the request contains a valid auth token
+func validateAuthToken(r *http.Request) (err error) {
+	// - get the auth token from the header
+	authToken := r.Header.Get("Auth")
+	expectedAuthToken := os.Getenv("AUTH_TOKEN")
+	if expectedAuthToken == "" {
+		return fmt.Errorf("expected auth token is empty")
+	}
+	// - validate that the auth token is not empty
+	if authToken == "" {
+		return fmt.Errorf("auth token is empty")
+	}
+	// - validate that the auth token is valid
+	if authToken != expectedAuthToken {
+		return fmt.Errorf("auth token is invalid")
+	}
+	return
 }

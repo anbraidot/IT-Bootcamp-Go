@@ -4,8 +4,10 @@ import (
 	"03-POST/internal/handler"
 	"03-POST/internal/repository"
 	"03-POST/internal/service"
-	"github.com/go-chi/chi/v5"
+	"03-POST/internal/storage"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 // NewDefaultHTTP creates a new default HTTP
@@ -25,8 +27,16 @@ type DefaultHTTP struct {
 // Run runs the HTTP server
 func (d *DefaultHTTP) Run() (err error) {
 	// initialize dependencies
+	// create the product storage
+	st := storage.NewProductJSON(nil, "")
+	// create the file storage
+	err = st.CreateFile()
+	if err != nil {
+		return err
+	}
 	// create the product repository
-	rp := repository.NewProductMap(nil, 0)
+	//rp := repository.NewProductMap(nil, 0)
+	rp := repository.NewProductJSON(st, nil, 0)
 	// create the product service
 	sv := service.NewProductDefault(rp)
 	// create the product handler
