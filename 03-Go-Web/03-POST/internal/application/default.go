@@ -2,6 +2,7 @@ package application
 
 import (
 	"03-POST/internal/handler"
+	"03-POST/internal/middleware"
 	"03-POST/internal/repository"
 	"03-POST/internal/service"
 	"03-POST/internal/storage"
@@ -11,10 +12,11 @@ import (
 )
 
 // NewDefaultHTTP creates a new default HTTP
-func NewDefaultHTTP(address string) *DefaultHTTP {
+func NewDefaultHTTP(address, token string) *DefaultHTTP {
 	// return the default HTTP
 	return &DefaultHTTP{
 		address: address,
+		token:   token,
 	}
 }
 
@@ -22,6 +24,7 @@ func NewDefaultHTTP(address string) *DefaultHTTP {
 type DefaultHTTP struct {
 	// address is the address of the HTTP
 	address string
+	token   string
 }
 
 // Run runs the HTTP server
@@ -43,6 +46,9 @@ func (d *DefaultHTTP) Run() (err error) {
 	hd := handler.NewProductDefault(sv)
 	// create the chi router
 	rt := chi.NewRouter()
+
+	// add the authenticator middleware
+	rt.Use(middleware.NewAuthenticator(d.token).Auth, middleware.NewResponseLogger().Log)
 
 	// register the routes
 	rt.Route("/products", func(r chi.Router) {

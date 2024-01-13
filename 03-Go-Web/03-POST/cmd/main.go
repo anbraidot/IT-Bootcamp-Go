@@ -13,8 +13,9 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
 	// - create the app
-	app := application.NewDefaultHTTP(":8080")
+	app := application.NewDefaultHTTP(":8080", os.Getenv("AUTH_TOKEN"))
 
 	//run
 	if err := app.Run(); err != nil {
