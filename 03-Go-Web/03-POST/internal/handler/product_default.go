@@ -7,11 +7,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	"io"
 	"net/http"
 	"os"
 	"strconv"
-	"github.com/go-chi/chi/v5"
 )
 
 // NewProductDefault creates a new instance of ProductDefault
@@ -61,7 +61,7 @@ func (p *ProductDefault) Create() http.HandlerFunc {
 
 		var body BodyRequestProductJSON
 		if err := request.JSON(r, &body); err != nil {
-			response.Error(w, http.StatusBadRequest, "invalid body request")
+			response.Error(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
@@ -106,10 +106,7 @@ func (p *ProductDefault) Create() http.HandlerFunc {
 		}
 
 		//- send the product
-		response.JSON(w, http.StatusCreated, map[string]any{
-			"product": productJSON,
-			"message": "product created",
-		})
+		response.JSON(w, http.StatusCreated, productJSON)
 	}
 }
 
@@ -132,16 +129,26 @@ func (p *ProductDefault) GetAll() http.HandlerFunc {
 
 		//response
 		if len(productList) == 0 {
-			response.JSON(w, http.StatusNoContent, map[string]any{
-				"message": "no products found",
-			})
-			return
-		} else {
-			response.JSON(w, http.StatusOK, map[string]any{
-				"products": productList,
-			})
+			response.JSON(w, http.StatusOK, []ProductJSON{})
 			return
 		}
+
+		//- serialize the product list
+		productListJSON := make([]ProductJSON, len(productList))
+		for i, product := range productList {
+			productListJSON[i] = ProductJSON{
+				Id:          product.Id,
+				Name:        product.Name,
+				Quantity:    product.Quantity,
+				CodeValue:   product.CodeValue,
+				IsPublished: product.IsPublished,
+				Expiration:  product.Expiration,
+				Price:       product.Price,
+			}
+		}
+
+		//- send the product list
+		response.JSON(w, http.StatusOK, productListJSON)
 	}
 }
 
@@ -159,8 +166,7 @@ func (p *ProductDefault) GetByID() http.HandlerFunc {
 		//- parse the idParam to int64
 		id, err := strconv.ParseInt(idParam, 0, 0)
 		if err != nil {
-			// Return Error 500 Internal Server Error
-			w.WriteHeader(http.StatusInternalServerError)
+			response.Error(w, http.StatusBadRequest, "invalid id")
 			return
 		}
 
@@ -176,10 +182,19 @@ func (p *ProductDefault) GetByID() http.HandlerFunc {
 			return
 		}
 
+		//serialize the product
+		productJSON := ProductJSON{
+			Id:          product.Id,
+			Name:        product.Name,
+			Quantity:    product.Quantity,
+			CodeValue:   product.CodeValue,
+			IsPublished: product.IsPublished,
+			Expiration:  product.Expiration,
+			Price:       product.Price,
+		}
+
 		//response
-		response.JSON(w, http.StatusOK, map[string]any{
-			"product": product,
-		})
+		response.JSON(w, http.StatusOK, productJSON)
 	}
 }
 
@@ -260,10 +275,7 @@ func (p *ProductDefault) Update() http.HandlerFunc {
 		}
 
 		// - send the product
-		response.JSON(w, http.StatusAccepted, map[string]any{
-			"product": productJSON,
-			"message": "product updated",
-		})
+		response.JSON(w, http.StatusAccepted, productJSON)
 	}
 }
 
@@ -345,10 +357,7 @@ func (p *ProductDefault) UpdatePartial() http.HandlerFunc {
 		}
 
 		// - send the product
-		response.JSON(w, http.StatusAccepted, map[string]any{
-			"product": productJSON,
-			"message": "product updated",
-		})
+		response.JSON(w, http.StatusAccepted, productJSON)
 	}
 }
 
@@ -381,9 +390,7 @@ func (p *ProductDefault) Delete() http.HandlerFunc {
 		}
 
 		// response
-		response.JSON(w, http.StatusAccepted, map[string]any{
-			"message": "product deleted",
-		})
+		response.JSON(w, http.StatusNoContent, nil)
 	}
 }
 
@@ -443,7 +450,7 @@ func (p *ProductDefault) ConsumerPrice() http.HandlerFunc {
 		}
 		// - send the list of products and the total price
 		response.JSON(w, http.StatusOK, map[string]any{
-			"products": productsJSON,
+			"products":    productsJSON,
 			"total_price": totalPrice,
 		})
 	}

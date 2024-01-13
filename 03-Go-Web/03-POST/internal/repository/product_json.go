@@ -107,12 +107,18 @@ func (p *ProductJSON) Update(product *internal.Product) (err error) {
 	}
 
 	// update the product in the map
-	data, ok := (*p).db[(*product).Id]
+	prod, ok := (*p).db[(*product).Id]
 	if !ok {
 		err = internal.ErrProductIdNotFound
 		return
 	}
-	(*p).db[data.Id] = *product
+	(*p).db[prod.Id] = *product
+
+	// save data to file
+	err = p.writeFile(&(*p).db)
+	if err != nil {
+		return
+	}
 	return
 }
 
@@ -131,6 +137,12 @@ func (p *ProductJSON) Delete(id int) (err error) {
 	} else {
 		// delete the product from the map
 		delete((*p).db, id)
+	}
+
+	// save data to file
+	err = p.writeFile(&(*p).db)
+	if err != nil {
+		return
 	}
 	return
 }
@@ -165,7 +177,7 @@ func (p *ProductJSON) readFile(db *map[int]internal.Product) (err error) {
 	if err != nil {
 		return
 	}
-	
+
 	// deserialize json to map
 	if len(data) > 0 {
 		err = json.Unmarshal(data, &(*p).db)
@@ -173,5 +185,18 @@ func (p *ProductJSON) readFile(db *map[int]internal.Product) (err error) {
 			return
 		}
 	}
+	return
+}
+
+// WriteFile writes the file
+func (p *ProductJSON) writeFile(db *map[int]internal.Product) (err error) {
+	// convert the map to json
+	data, err := json.Marshal((*p).db)
+	if err != nil {
+		return
+	}
+
+	// save data to file
+	err = p.st.Write(data)
 	return
 }

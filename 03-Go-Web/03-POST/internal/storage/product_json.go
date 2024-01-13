@@ -55,6 +55,10 @@ func (p *ProductJSON) Read() (data []byte, err error) {
 // Write writes the map to a json file
 func (p *ProductJSON) Write(data []byte) (err error) {
 	// open the file
+	_, err = os.Create(p.path)
+	if err != nil {
+		return fmt.Errorf("error creating the file: %w", internal.ErrCreateFile)
+	}
 	file, err := os.OpenFile(p.path, os.O_WRONLY, 0644)
 	if err != nil {
 		return fmt.Errorf("error opening the file: %w", internal.ErrOpenFile)
@@ -75,7 +79,7 @@ func (p *ProductJSON) CreateFile() (err error) {
 	file, err := os.OpenFile(p.path, os.O_RDONLY|os.O_CREATE, 0644)
 	if err != nil {
 		err = fmt.Errorf("internal server error: %w", internal.ErrCreateFile)
-			return
+		return
 	}
 	// close the file
 	defer file.Close()

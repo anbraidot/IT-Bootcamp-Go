@@ -71,7 +71,7 @@ func (p *ProductDefault) Update(product *internal.Product) (err error) {
 	if err = (*p).rp.Update(product); err != nil {
 		switch err {
 		case internal.ErrProductIdNotFound:
-			err = fmt.Errorf("%w: code_value", internal.ErrProductNotFound)
+			err = fmt.Errorf("%w: id", internal.ErrProductNotFound)
 		}
 		return
 	}
@@ -84,7 +84,7 @@ func (p *ProductDefault) Delete(id int) (err error) {
 	if err = (*p).rp.Delete(id); err != nil {
 		switch err {
 		case internal.ErrProductIdNotFound:
-			err = fmt.Errorf("%w: code_value", internal.ErrProductNotFound)
+			err = fmt.Errorf("%w: id", internal.ErrProductNotFound)
 		}
 		return
 	}

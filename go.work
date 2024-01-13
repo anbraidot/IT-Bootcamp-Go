@@ -1,3 +1,6 @@
 go 1.21.5
 
-use ./03-Go-Web/03-POST
+use (
+	./02-Go-Bases/04-Unit-Testing/code/app
+	./03-Go-Web/03-POST
+)
