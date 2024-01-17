@@ -7,10 +7,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/go-chi/chi/v5"
 	"io"
-	"net/http"	
+	"net/http"
 	"strconv"
+
+	"github.com/go-chi/chi/v5"
 )
 
 // NewProductDefault creates a new instance of ProductDefault
