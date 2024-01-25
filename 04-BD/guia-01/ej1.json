@@ -1,0 +1,286 @@
+[
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706111903573,
+        "type": "auto",
+        "id": "7f7c86b0-2cda-4dd7-8912-49763d7caecc",
+        "name": "sour-evening"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    int id_cliente PK\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS ||--o{ SERVICIOS: tiene\nVEHICULOS {\n    id_vehiculo INT PK\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT FK\n}\n\nSERVICIOS {\n    id_servicio INT PK\n    nombre VARCHAR(15)\n    descripcion VARCHAR(250)\n    fecha DATETIME\n    id_vehiculo INT FK\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false,
+            "panZoom": false,
+            "editorMode": "code"
+        },
+        "time": 1706111891057,
+        "type": "auto",
+        "id": "a4572d18-598b-415d-a3fd-89ca4cf727db",
+        "name": "limited-caravan"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS ||--o{ SERVICIOS: tiene\nVEHICULOS {\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    nombre VARCHAR(15)\n    descripcion VARCHAR(250)\n    fecha DATETIME\n    id_vehiculo INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false,
+            "panZoom": false,
+            "editorMode": "code"
+        },
+        "time": 1706111651057,
+        "type": "auto",
+        "id": "c0327dd7-93d3-4e1e-af37-c64d7a2ba7e0",
+        "name": "cuddly-potato"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS ||--o{ SERVICIOS: tiene\nVEHICULOS {\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    nombre VARCHAR(15)\n    descripcion VARCHAR(250)\n    fecha DATETIME\n    id_vehiculo INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false,
+            "panZoom": false,
+            "editorMode": "code"
+        },
+        "time": 1706111624333,
+        "type": "manual",
+        "id": "3853e8b0-1679-42e7-aa23-b8eeebd0f2a1",
+        "name": "lemon-advertisement"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706111603573,
+        "type": "auto",
+        "id": "a0794c13-41cc-4fd7-af88-f579350319c6",
+        "name": "red-architect"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS ||--o{ SERVICIOS: tiene\nVEHICULOS {\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    Nombre VARCHAR(15)\n    Descripcion VARCHAR(250)\n    Fecha DATE\n    id_vehiculo INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false,
+            "panZoom": false,
+            "editorMode": "code"
+        },
+        "time": 1706111591057,
+        "type": "auto",
+        "id": "23cb5cba-1456-4676-bc0a-8b003e4d9d71",
+        "name": "ugly-book"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS ||--o{ SERVICIOS: tiene\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    Nombre VARCHAR(15)\n    Descripcion VARCHAR(250)\n    id_vehiculo INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706111531056,
+        "type": "auto",
+        "id": "50898b44-b720-4ecb-a378-a18c4bac8a06",
+        "name": "arrogant-twilight"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS |--o{ \n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    Nombre VARCHAR(15)\n    Descripcion VARCHAR(250)\n    id_vehiculo INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706111471057,
+        "type": "auto",
+        "id": "61cf17a3-d686-4f46-8d3e-9f222d1d1b72",
+        "name": "bent-ad"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706111423572,
+        "type": "auto",
+        "id": "dc5a7387-c4dd-4e6e-9d11-1494e01c8c92",
+        "name": "massive-gigabyte"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS {\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    id_cliente \n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706111111055,
+        "type": "auto",
+        "id": "88e279f4-a902-4a08-971d-c6edf86d64d1",
+        "name": "many-disease"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706111063571,
+        "type": "auto",
+        "id": "946ef524-52f8-479d-acf8-1d28ddee197c",
+        "name": "damaged-answer"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULOS: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULOS {\n    id_vehiculo INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n    patente VARCHAR(15)\n    id_cliente INT\n}\n\nSERVICIOS {\n    id_servicio INT\n    id_\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706111051055,
+        "type": "auto",
+        "id": "df04de10-fc54-447b-874d-2888d5d6fdba",
+        "name": "repulsive-angle"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706111003571,
+        "type": "auto",
+        "id": "0182ff74-3f2c-4abc-9b39-f59ab1d2910c",
+        "name": "hallowed-holiday"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULO: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULO {\n    id INT\n    marca VARCHAR(15)\n    modelo VARCHAR(15)\n    color VARCHAR(15)\n\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706110991055,
+        "type": "auto",
+        "id": "2ab47625-7d1d-40cc-821e-216fad2d05f7",
+        "name": "crooked-musician"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706110943570,
+        "type": "auto",
+        "id": "46f5dd7b-c441-4f96-b004-752b6d24fb15",
+        "name": "prehistoric-hospital"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULO: tiene\nCLIENTES {\n    id INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULO {\n    id INT\n    marca VARCHAR(15) DECIMAL\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706110931055,
+        "type": "auto",
+        "id": "08cd04e0-dc9b-45c5-88f6-acb95fc18dd1",
+        "name": "tight-vulture"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULO: tiene\nCLIENTES {\n    id INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULO {\n    nro_cuenta INT\n    saldo DECIMAL\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706110871055,
+        "type": "auto",
+        "id": "9fcc60d8-9ef4-4f1d-bc53-06437a16b58b",
+        "name": "jolly-nigeria"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706110823570,
+        "type": "auto",
+        "id": "3d57f6b9-1c48-4b02-8710-12c184b2cd3e",
+        "name": "gorgeous-teenager"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ VEHICULO: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nVEHICULO {\n    nro_cuenta INT\n    saldo DECIMAL\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706110811062,
+        "type": "auto",
+        "id": "bdf3389f-b163-4a85-9030-cbba4fe9943c",
+        "name": "tart-motorcycle"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTES ||--o{ CUENTA: tiene\nCLIENTES {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nCUENTA {\n    nro_cuenta INT\n    saldo DECIMAL\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706110571928,
+        "type": "auto",
+        "id": "a3ddc2e8-9be8-40cb-8ba4-594f8cf96fa5",
+        "name": "vast-parrot"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706110523569,
+        "type": "auto",
+        "id": "5b1fb88d-82ba-4aea-b5cc-f6581f5a1b05",
+        "name": "bald-postman"
+    },
+    {
+        "state": {
+            "code": "erDiagram\nCLIENTE ||--o{ CUENTA: tiene\nCLIENTE {\n    id_cliente INT\n    dni VARCHAR(15)\n    nombre VARCHAR(45)\n    apellido VARCHAR(45)\n    domicilio VARCHAR(45)\n}\n\nCUENTA {\n    nro_cuenta INT\n    saldo DECIMAL\n    id_cliente INT\n}",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": false
+        },
+        "time": 1706108591047,
+        "type": "auto",
+        "id": "363fad0c-85a9-446d-b743-e43f5631b74d",
+        "name": "billions-oxygen"
+    },
+    {
+        "state": {
+            "code": "erDiagram\n    CUSTOMER }|..|{ DELIVERY-ADDRESS : has\n    CUSTOMER ||--o{ ORDER : places\n    CUSTOMER ||--o{ INVOICE : \"liable for\"\n    DELIVERY-ADDRESS ||--o{ ORDER : receives\n    INVOICE ||--|{ ORDER : covers\n    ORDER ||--|{ ORDER-ITEM : includes\n    PRODUCT-CATEGORY ||--|{ PRODUCT : contains\n    PRODUCT ||--o{ ORDER-ITEM : \"ordered in\"",
+            "mermaid": "{\n  \"theme\": \"dark\"\n}",
+            "autoSync": true,
+            "updateDiagram": true
+        },
+        "time": 1706108543936,
+        "type": "auto",
+        "id": "ca5f080e-e96b-4216-b818-8bbc18c326a0",
+        "name": "odd-cpu"
+    }
+]
