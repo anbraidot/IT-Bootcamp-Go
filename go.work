@@ -5,4 +5,7 @@ use (
 	./03-Code-Review-1
 	./03-Go-Web/03-POST
 	./03-Go-Web/04-Desafio
+	./05-Go-Storage/Practica-1
+	./05-Go-Storage/Storage-Desafio-Cierre
+	./06-Testing/01-Unit-Test
 )
