@@ -1,7 +1,7 @@
 package hunt_test
 
 import (
-	"testdoubles/hunt"
+	"06-Testing/01-Unit-Test/hunt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
