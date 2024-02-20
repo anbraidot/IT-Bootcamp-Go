@@ -8,4 +8,6 @@ use (
 	./05-Go-Storage/Practica-1
 	./05-Go-Storage/Storage-Desafio-Cierre
 	./06-Testing/01-Unit-Test
+	./06-Testing/02-Double-Test
+	./06-Testing/Desafio-Cierre-Testing
 )
